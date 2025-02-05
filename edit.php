@@ -1,7 +1,7 @@
 <?php
 
 include 'db.php';
-
+session_start();
 
 
 $id = $_GET['id'];
@@ -10,14 +10,15 @@ $result = mysqli_query($conn, $query);
 $row = mysqli_fetch_assoc($result);
 
 if (isset($_POST['send'])) {
-    $pName = $_POST['name'];
-    $pEmail = $_POST['email'];
-    $pPhone = $_POST['phone'];
+    $pName2 = $_POST['name'];
+    $pEmail2 = $_POST['email'];
+    $pPhone2 = $_POST['phone'];
 
-    $updateQuery = "UPDATE users SET name='$pName', email='$pEmail', phone='$pPhone' WHERE id=$id";
+    $updateQuery = "UPDATE users SET name='$pName2', email='$pEmail2', phone='$pPhone2' WHERE id=$id";
 
     if (mysqli_query($conn, $updateQuery)) {
-        header("Location: index.php?msg=updated");
+        header("Location: index.php");
+        $_SESSION['msg'] = "Information Updated";
         exit();
     } else {
         echo "Error updating record: " . mysqli_error($conn);
